@@ -1,0 +1,104 @@
+version: '3.8'
+
+services:
+  # Eureka Server
+  eureka:
+    build:
+      context: ../EclipseJavaProject/eureka
+      dockerfile: Dockerfile
+    container_name: eureka-server
+    ports:
+      - "8761:8761"
+    networks:
+      - microservices-network
+
+  # API Gateway
+  gateway:
+    build:
+      context: ../EclipseJavaProject/gateway
+      dockerfile: Dockerfile
+    container_name: api-gateway
+    ports:
+      - "8080:8080"
+    depends_on:
+      - eureka
+    networks:
+      - microservices-network
+
+  # Student MySQL
+  student-mysql:
+    image: mysql:8.0
+    container_name: student-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: CodeMatDev019*
+      MYSQL_DATABASE: studentdb
+    ports:
+      - "3307:3306"
+    networks:
+      - microservices-network
+    volumes:
+      - student-mysql-data:/var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-pCodeMatDev019*"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  student-service:
+    build:
+      context: ../EclipseJavaProject/student-service
+      dockerfile: Dockerfile
+    container_name: student-service
+    ports:
+      - "8081:8081"
+    depends_on:
+      student-mysql:
+        condition: service_healthy
+      eureka:
+        condition: service_started
+    networks:
+      - microservices-network
+
+  # University MySQL
+  university-mysql:
+    image: mysql:8.0
+    container_name: university-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: CodeMatDev019*
+      MYSQL_DATABASE: universitydb
+    ports:
+      - "3308:3306"
+    networks:
+      - microservices-network
+    volumes:
+      - university-mysql-data:/var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-pCodeMatDev019*"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  university-service:
+    build:
+      context: ../EclipseJavaProject/university-service
+      dockerfile: Dockerfile
+    container_name: university-service
+    ports:
+      - "8082:8082"
+    depends_on:
+      university-mysql:
+        condition: service_healthy
+      eureka:
+        condition: service_started
+    networks:
+      - microservices-network
+
+networks:
+  microservices-network:
+    driver: bridge
+
+volumes:
+  student-mysql-data:
+  university-mysql-data:
