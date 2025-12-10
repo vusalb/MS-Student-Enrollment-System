@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 MS-Student-Enrollment Project
 
 MS-Student-Enrollment is a simple microservices-based project created for learning, designing, and understanding microservice architecture.
@@ -22,9 +21,9 @@ Acts as the single entry point for routing requests to microservices.
 
 ✔ Two Main Microservices
 
-Student Service
+-Student Service
 
-University Service
+-University Service
 
 These two services communicate with each other using OpenFeign (Feign Client).
 
@@ -33,33 +32,32 @@ These two services communicate with each other using OpenFeign (Feign Client).
 Each microservice uses its own independent MySQL database, all running inside Docker containers.
 Service-to-database connections are orchestrated using a Docker Compose YAML file.
 
-🚀 Planned Features (Upcoming Enhancements)
+✔ Planned Features (Upcoming Enhancements)
 
 This project will continue evolving and will soon include:
 
-🔔 Notification Service
+✔ Notification Service
 
 A dedicated service that will send notifications (e.g., “Enrollment completed successfully”) to students.
 
-📡 Distributed Tracing
+✔ Distributed Tracing
 
 Using Zipkin to track and monitor requests across all microservices.
 
-📩 Message Broker
+✔ Message Broker
 
 For asynchronous communication using Kafka or RabbitMQ.
 
-⚡ Caching Layer
+✔ Caching Layer
 
 Implementing Redis to improve application performance and reduce load.
 
-🔐 Security
+✔ Security
 
 Integrating Keycloak for authentication and authorization (OAuth2 / OpenID Connect).
 
-📦 Containerization & Orchestration
+✔ Containerization & Orchestration
 
 All services will continue to be Dockerized, with the potential to migrate to Kubernetes in the future.
-=======
 # MS-Student-Enrollment-System
 >>>>>>> 90b1d7de576d96acdd0030e3987608eb76055716
