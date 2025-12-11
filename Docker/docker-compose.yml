@@ -1,10 +1,10 @@
-version: '3.8'
+version: "3.8"
 
 services:
   # Eureka Server
   eureka:
     build:
-      context: ../EclipseJavaProject/eureka
+      context: C:/Users/Vusal/Desktop/MS-Student-Enrollment/eureka
       dockerfile: Dockerfile
     container_name: eureka-server
     ports:
@@ -15,13 +15,15 @@ services:
   # API Gateway
   gateway:
     build:
-      context: ../EclipseJavaProject/gateway
+      context: C:/Users/Vusal/Desktop/MS-Student-Enrollment/gateway
       dockerfile: Dockerfile
     container_name: api-gateway
     ports:
-      - "8080:8080"
+      - "8888:8888"
     depends_on:
       - eureka
+      - student-service
+      - university-service
     networks:
       - microservices-network
 
@@ -45,13 +47,12 @@ services:
       timeout: 3s
       retries: 10
 
+  # Student Service
   student-service:
     build:
-      context: ../EclipseJavaProject/student-service
+      context: C:/Users/Vusal/Desktop/MS-Student-Enrollment/student-service
       dockerfile: Dockerfile
     container_name: student-service
-    ports:
-      - "8081:8081"
     depends_on:
       student-mysql:
         condition: service_healthy
@@ -80,13 +81,12 @@ services:
       timeout: 3s
       retries: 10
 
+  # University Service
   university-service:
     build:
-      context: ../EclipseJavaProject/university-service
+      context: C:/Users/Vusal/Desktop/MS-Student-Enrollment/university-service
       dockerfile: Dockerfile
     container_name: university-service
-    ports:
-      - "8082:8082"
     depends_on:
       university-mysql:
         condition: service_healthy
