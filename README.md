@@ -40,10 +40,6 @@ This project will continue evolving and will soon include:
 
 A dedicated service that will send notifications (e.g., “Enrollment completed successfully”) to students.
 
-✔ Distributed Tracing
-
-Using Zipkin to track and monitor requests across all microservices.
-
 ✔ Message Broker
 
 For asynchronous communication using Kafka or RabbitMQ.
