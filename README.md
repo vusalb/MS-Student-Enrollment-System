@@ -52,6 +52,6 @@ Implementing Redis to improve application performance and reduce load.
 
 Integrating Keycloak for authentication and authorization (OAuth2 / OpenID Connect).
 
-✔ Containerization & Orchestration
+✔ Containerization
 
-All services will continue to be Dockerized, with the potential to migrate to Kubernetes in the future.
+All services will continue to be Dockerized.
